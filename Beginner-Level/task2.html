@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Maker</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #resume-preview {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        #resume-preview h2 {
+            margin-top: 0;
+        }
+
+        #preview-content {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        select {
+            padding: 10px;
+            margin-top: 10px;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        select:focus {
+            border-color: #4CAF50;
+        }
+
+        #editor {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+            min-height: 150px;
+        }
+    </style>
+    <style>
+        /* General Template Styling */
+        .template {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+        }
+    
+        /* Template 1: Classic */
+        .template1 {
+            font-family: 'Times New Roman', Times, serif;
+            color: #333;
+        }
+    
+        /* Template 2: Modern */
+        .template2 {
+            font-family: 'Arial', sans-serif;
+            background-color: #e8f4fc;
+            padding: 10px;
+            border-left: 4px solid #4caf50;
+        }
+    
+        /* Template 3: Creative */
+        .template3 {
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(to right, #f4f7fc, #dfeaf4);
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <form id="resume-form">
+        <h2>User Information</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+    
+        <label for="contact">Contact Info:</label>
+        <input type="email" id="contact" required>
+    
+        <label for="summary">Summary:</label>
+        <textarea id="summary" required></textarea>
+    
+        <h2>Skills</h2>
+        <input type="text" id="skills" placeholder="Comma separated">
+    
+        <h2>Education</h2>
+        <input type="text" id="education" placeholder="Degree, Institution, Year">
+    
+        <h2>Experience</h2>
+        <textarea id="experience" placeholder="Job title, Company, Years"></textarea>
+    
+        <h2>Projects</h2>
+        <textarea id="projects" placeholder="Project details"></textarea>
+    
+        <h2>Certifications</h2>
+        <input type="text" id="certifications" placeholder="Certification name, Year">
+    
+        <h2>Languages</h2>
+        <input type="text" id="languages" placeholder="Languages spoken">
+    
+        <h2>References</h2>
+        <textarea id="references" placeholder="Reference details"></textarea>
+    
+        <button type="button" onclick="generateResume()">Generate Resume</button>
+    </form>
+
+    <div id="editor"></div>
+
+    <h2>Select Template</h2>
+    <label for="template-selector">Select Template:</label>
+    <select id="template-selector">
+    <option value="template1">Classic</option>
+    <option value="template2">Modern</option>
+    <option value="template3">Creative</option>
+    </select>
+
+
+    <div id="resume-preview">
+        <h2>Resume Preview</h2>
+        <div id="preview-content"></div>
+    </div>
+
+    <h2>Export Resume</h2>
+    <button onclick="exportPDF()">Download as PDF</button>
+    <button onclick="exportDoc()">Download as DOCX</button>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow',
+            modules: {
+                toolbar: [['bold', 'italic'], ['link', 'blockquote', 'code-block']]
+            }
+        });
+    
+        function generateResume() {
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+            const summary = document.getElementById('summary').value;
+            const skills = document.getElementById('skills').value;
+            const education = document.getElementById('education').value;
+            const experience = document.getElementById('experience').value;
+            const projects = document.getElementById('projects').value;
+            const certifications = document.getElementById('certifications').value;
+            const languages = document.getElementById('languages').value;
+            const references = document.getElementById('references').value;
+    
+            document.getElementById('preview-content').innerHTML = `
+                <h1>${name}</h1>
+                <p>${contact}</p>
+                <h2>Summary</h2>
+                <p>${summary}</p>
+                <h2>Skills</h2>
+                <p>${skills}</p>
+                <h2>Education</h2>
+                <p>${education}</p>
+                <h2>Experience</h2>
+                <p>${experience}</p>
+                <h2>Projects</h2>
+                <p>${projects}</p>
+                <h2>Certifications</h2>
+                <p>${certifications}</p>
+                <h2>Languages</h2>
+                <p>${languages}</p>
+                <h2>References</h2>
+                <p>${references}</p>
+            `;
+        }
+    
+        async function exportPDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+    
+            const content = document.getElementById('preview-content').innerHTML;
+    
+            // Convert HTML to plain text
+            const plainText = content.replace(/<\/?[^>]+(>|$)/g, "\n").replace(/\n\s*\n/g, '\n');
+    
+            pdf.text(plainText, 10, 10);
+            pdf.save('resume.pdf');
+        }
+    
+        function exportDoc() {
+            const content = document.getElementById('preview-content').innerHTML;
+    
+            // Create a Blob with the content and specify the MIME type as Word
+            const blob = new Blob(['\ufeff', content], {
+                type: 'application/msword'
+            });
+    
+            // Save the file using FileSaver.js
+            saveAs(blob, 'resume.docx');
+        }
+    </script>
+    <script>
+        function generateResume() {
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+            const summary = document.getElementById('summary').value;
+            const skills = document.getElementById('skills').value;
+            const education = document.getElementById('education').value;
+            const experience = document.getElementById('experience').value;
+            const projects = document.getElementById('projects').value;
+            const certifications = document.getElementById('certifications').value;
+            const languages = document.getElementById('languages').value;
+            const references = document.getElementById('references').value;
+    
+            // Get selected template
+            const template = document.getElementById('template-selector').value;
+    
+            // Apply the selected template style
+            document.getElementById('preview-content').className = `template ${template}`;
+    
+            // Populate the resume content
+            document.getElementById('preview-content').innerHTML = `
+                <h1>${name}</h1>
+                <p>${contact}</p>
+                <h2>Summary</h2>
+                <p>${summary}</p>
+                <h2>Skills</h2>
+                <p>${skills}</p>
+                <h2>Education</h2>
+                <p>${education}</p>
+                <h2>Experience</h2>
+                <p>${experience}</p>
+                <h2>Projects</h2>
+                <p>${projects}</p>
+                <h2>Certifications</h2>
+                <p>${certifications}</p>
+                <h2>Languages</h2>
+                <p>${languages}</p>
+                <h2>References</h2>
+                <p>${references}</p>
+            `;
+        }
+    </script>
+    
+</body>
+</html>

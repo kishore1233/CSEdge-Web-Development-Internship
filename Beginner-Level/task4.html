@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tribute Page</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 50px 20px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .main-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content h2 {
+            font-size: 2.5em;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .main-content p {
+            font-size: 1.2em;
+            color: #555;
+            margin-top: 15px;
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        /* Timeline Section */
+        #timeline {
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+        }
+
+        #timeline h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item div {
+            width: 45%;
+        }
+
+        .timeline-item img {
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .timeline-item h3 {
+            color: #4CAF50;
+            font-size: 1.5em;
+        }
+
+        .timeline-item p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Quotes Section */
+        #quotes {
+            padding: 50px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+
+        #quotes h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        #quotes blockquote {
+            font-size: 1.5em;
+            font-style: italic;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+
+        #quotes p {
+            font-size: 1.1em;
+            color: #ddd;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1em;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .timeline-item div {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .main-content h2 {
+                font-size: 2em;
+            }
+
+            .main-content p {
+                font-size: 1em;
+            }
+
+            #quotes blockquote {
+                font-size: 1.2em;
+            }
+
+            footer p {
+                font-size: 0.9em;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-item img {
+                max-width: 80%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>In Loving Memory of Jane Doe</h1>
+        <p>A Tribute to a Remarkable Life</p>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <img src="jane doe.jpg" alt="Jane Doe" width="300" height="300">
+        <h2>About Jane Doe</h2>
+        <p>Jane Doe was an extraordinary woman whose legacy continues to inspire many. Throughout her life, she touched countless lives with her kindness, wisdom, and dedication to her work. This page serves as a tribute to her contributions and the indelible mark she left on the world.</p>
+    </div>
+
+    <!-- Timeline Section -->
+    <section id="timeline">
+        <h2>Timeline of Achievements</h2>
+
+        <div class="timeline-item">
+            <div>
+                <h3>Early Life</h3>
+                <p>Jane was born in 1980 and grew up in a small town, where she quickly became known for her creativity and determination.</p>
+            </div>
+            <div>
+                <img src="coroner.jpg" alt="Early Life" width="180" height="120">
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div>
+                <h3>Career Milestone</h3>
+                <p>In 2005, Jane launched her first company, which soon became a leader in the tech industry, revolutionizing the way people interacted with technology.</p>
+            </div>
+            <div>
+                <img src="milestone.jpg" alt="Career Milestone" width="180" height="120">
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div>
+                <h3>Legacy and Recognition</h3>
+                <p>Jane received numerous awards for her work, including the prestigious Innovator of the Year award in 2015. She is remembered for her vision and commitment to making the world a better place.</p>
+            </div>
+            <div>
+                <img src="legacy.jpg" alt="Legacy" width="180" height="120">
+            </div>
+        </div>
+    </section>
+
+    <!-- Quotes Section -->
+    <section id="quotes">
+        <h2>Words of Wisdom</h2>
+        <blockquote>"The best way to predict the future is to create it." – Jane Doe</blockquote>
+        <p>Jane always believed in creating change rather than waiting for it. Her forward-thinking approach continues to inspire future generations.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Jane Doe Tribute. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

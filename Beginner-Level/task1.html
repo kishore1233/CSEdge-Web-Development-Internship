@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Scrolling Website with Videos</title>
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            margin: 0;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        /* Section Styling */
+        .section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        /* Background Video */
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1, h2 {
+                font-size: 24px;
+            }
+
+            nav ul li a {
+                font-size: 16px;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#section1">Home</a></li>
+            <li><a href="#section2">About</a></li>
+            <li><a href="#section3">Services</a></li>
+            <li><a href="#section4">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sections -->
+    <div id="section1" class="section">
+        <video class="bg-video" autoplay loop muted>
+            <source src="home.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h1 class="fade-in">Welcome to Our gaming Website</h1>
+        <p>This Website is special made for gamers</p>
+    </div>
+
+    <div id="section2" class="section">
+        <video class="bg-video" autoplay loop muted>
+            <source src="about.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h1 class="fade-in">About Us</h1>
+        <p>We are a team of professional gamers who have been in the industry for over 10 years.</p>
+    </div>
+
+    <div id="section3" class="section">
+        <video class="bg-video" autoplay loop muted>
+            <source src="services.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h1 class="fade-in">Our game Services</h1>
+        <p>We provide the best gaming services</p>
+    </div>
+
+    <div id="section4" class="section">
+    <video class="bg-video" autoplay loop muted>
+        <source src="contact.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <h1 class="fade-in">Contact Us</h1>
+    <p>For more information, you can feel free to contact us.</p>
+    <div style="margin-top: 20px;">
+        <a href="https://www.linkedin.com/in/kishore-kumar-0938ab270/" target="_blank" style="text-decoration: none;">
+            <button style="padding: 10px 20px; margin: 5px; background-color: #0077b5; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                LinkedIn
+            </button>
+        </a>
+        <a href="https://github.com/kishore1233" target="_blank" style="text-decoration: none;">
+            <button style="padding: 10px 20px; margin: 5px; background-color: #333; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                GitHub
+            </button>
+        </a>
+        <a href="mailto:kishorekd0987@gmail.com" style="text-decoration: none;">
+            <button style="padding: 10px 20px; margin: 5px; background-color: #d14836; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                Email
+            </button>
+        </a>
+    </div>
+</div>
+
+    <script>
+        // Add smooth scroll to navigation links
+        document.querySelectorAll('nav ul li a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on scroll
+        const fadeIns = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        });
+
+        fadeIns.forEach(fadeIn => observer.observe(fadeIn));
+    </script>
+</body>
+</html>
